@@ -1,0 +1,42 @@
+﻿@model Race_System_2_.Models.EventRace
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>EventRace</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaxParticipants)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaxParticipants)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EventID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EventID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CategoryID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.EventRaceID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

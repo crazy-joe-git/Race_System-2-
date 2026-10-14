@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Race_System_2_.Models.EventRace>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxParticipants)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxParticipants)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EventRaceID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EventRaceID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EventRaceID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

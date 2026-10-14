@@ -1,0 +1,45 @@
+﻿@model Race_System_2_.Models.Result
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Result</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FinishTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FinishTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RankOverall)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RankOverall)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RankInCategory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RankInCategory)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RegistrationID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RegistrationID)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ResultID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

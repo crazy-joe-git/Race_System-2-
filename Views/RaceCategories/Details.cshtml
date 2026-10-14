@@ -1,0 +1,36 @@
+﻿@model Race_System_2_.Models.RaceCategory
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>RaceCategory</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Distance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Distance)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category_description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category_description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CategoryID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
