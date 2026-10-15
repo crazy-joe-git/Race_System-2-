@@ -1,3 +1,4 @@
+using Xunit;
 namespace Race_System_2_.Tests
 {
     public class UnitTest1

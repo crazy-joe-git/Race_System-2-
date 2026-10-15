@@ -15,7 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Race_System(2)\Race_System(2).csproj" />
+       <ProjectReference Include="..\Race_System(2).csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Compile Remove="Race_System_2_.Tests\**" />
+		<Content Remove="Race_System_2_.Tests\**" />
+		<EmbeddedResource Remove="Race_System_2_.Tests\**" />
+		<None Remove="Race_System_2_.Tests\**" />
+	</ItemGroup>
 </Project>
