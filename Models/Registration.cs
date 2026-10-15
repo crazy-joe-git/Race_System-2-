@@ -16,6 +16,10 @@ namespace Race_System_2_.Models
         public int BidNumber { get; set; }
 
         [Required]
+        [Display(Name = "Category ID")]
+        public int CategoryID { get; set; }
+
+        [Required]
         public string PaymentStatus { get; set; } = string.Empty; // "Paid", "Pending"
 
         public int ParticipantID { get; set; } 
