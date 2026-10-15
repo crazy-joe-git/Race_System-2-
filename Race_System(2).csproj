@@ -20,4 +20,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.3.0" />
   </ItemGroup>
 
+   <ItemGroup>
+     <Compile Remove="Race_System_2_.Tests\**" />
+     <Content Remove="Race_System_2_.Tests\**" />
+     <EmbeddedResource Remove="Race_System_2_.Tests\**" />
+     <None Remove="Race_System_2_.Tests\**" />
+   </ItemGroup>
+
 </Project>
