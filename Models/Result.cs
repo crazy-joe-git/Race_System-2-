@@ -7,17 +7,18 @@ namespace Race_System_2_.Models
     public class Result
     {
         [Key]
-        public int ResultID { get; set; } 
+        public int ResultID { get; set; }
 
         [Required]
-        public TimeSpan FinishTime { get; set; }
+        [Display(Name = "Finish Time")]
+        public string FinishTime { get; set; } = string.Empty;
 
         [Required]
-        public int RankOverall { get; set; }
+        [Display(Name = "Position")]
+        public int Position { get; set; }
 
         [Required]
-        public int RankInCategory { get; set; }
-
-        public int RegistrationID { get; set; } 
+        [Display(Name = "Registration ID")]
+        public int RegistrationID { get; set; }
     }
 }

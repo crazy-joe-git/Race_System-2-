@@ -1,53 +1,39 @@
 ﻿@model IEnumerable<Race_System_2_.Models.Result>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Results";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <h2>Race Results</h2>
+    <p class="text-muted">Check final placement positions and recorded finish times.</p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FinishTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RankOverall)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RankInCategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RegistrationID)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FinishTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RankOverall)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RankInCategory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegistrationID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ResultID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ResultID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ResultID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    @if (User.IsInRole("Organiser"))
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">+ Capture New Result</a>
+        </p>
+    }
+
+    <table class="table table-hover mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Result ID</th>
+                <th>Registration ID</th>
+                <th>Finishing Position</th>
+                <th>Finish Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ResultID</td>
+                    <td><strong>@item.RegistrationID</strong></td>
+                    <td><span class="badge bg-success">Position: @item.Position</span></td>
+                    <td>@item.FinishTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

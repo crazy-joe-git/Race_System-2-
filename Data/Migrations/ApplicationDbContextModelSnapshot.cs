@@ -387,13 +387,11 @@ namespace Race_System_2_.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultID"));
 
-                    b.Property<TimeSpan>("FinishTime")
-                        .HasColumnType("time");
+                    b.Property<string>("FinishTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RankInCategory")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RankOverall")
+                    b.Property<int>("Position")
                         .HasColumnType("int");
 
                     b.Property<int>("RegistrationID")

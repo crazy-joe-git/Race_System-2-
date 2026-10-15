@@ -1,42 +1,30 @@
 ﻿@model Race_System_2_.Models.Result
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Result Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Result</h4>
+<div class="container mt-4">
+    <h2>Result Details</h2>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FinishTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FinishTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RankOverall)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RankOverall)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RankInCategory)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RankInCategory)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RegistrationID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RegistrationID)
-        </dd>
+        <dt class="col-sm-3">Result ID</dt>
+        <dd class="col-sm-9">@Model.ResultID</dd>
+
+        <dt class="col-sm-3">Registration ID</dt>
+        <dd class="col-sm-9">@Model.RegistrationID</dd>
+
+        <dt class="col-sm-3">Finishing Position</dt>
+        <dd class="col-sm-9"><span class="badge bg-success">Position: @Model.Position</span></dd>
+
+        <dt class="col-sm-3">Finish Time</dt>
+        <dd class="col-sm-9">@Model.FinishTime</dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ResultID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div>
+        @if (User.IsInRole("Organiser"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.ResultID" class="btn btn-warning">Edit</a>
+        }
+        <a asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
+    </div>
 </div>

@@ -1,59 +1,43 @@
 ﻿@model IEnumerable<Race_System_2_.Models.Registration>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Registrations";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <h2>Event Registrations</h2>
+    <p class="text-muted">Manage and review participant event entries.</p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Reg_Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BidNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaymentStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParticipantID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventRaceID)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reg_Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BidNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParticipantID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventRaceID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RegistrationID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RegistrationID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RegistrationID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    @if (User.IsInRole("Participant"))
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">+ Register for an Event</a>
+        </p>
+    }
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Registration ID</th>
+                <th>Participant ID</th>
+                <th>Event Race ID</th>
+                <th>Bid Number</th>
+                <th>Payment Status</th>
+                <th>Registration Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.RegistrationID</td>
+                    <td>@item.ParticipantID</td>
+                    <td>@item.EventRaceID</td>
+                    <td>@item.BidNumber</td>
+                    <td><span class="badge bg-info text-dark">@item.PaymentStatus</span></td>
+                    <td>@item.Reg_Date.ToString("yyyy-MM-dd HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
