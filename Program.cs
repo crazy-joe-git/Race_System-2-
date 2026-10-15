@@ -10,11 +10,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>() // <-- Enables Role management
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddControllersWithViews();
+
+// Add Swagger generation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,7 +27,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseSwagger();
-    app.UseSwaggerUI(); 
+    app.UseSwaggerUI();
 }
 else
 {
@@ -39,6 +41,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); // <-- Required for Identity authentication
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -62,5 +65,3 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
-
-

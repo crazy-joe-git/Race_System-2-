@@ -361,6 +361,9 @@ namespace Race_System_2_.Data.Migrations
                     b.Property<int>("BidNumber")
                         .HasColumnType("int");
 
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
                     b.Property<int>("EventRaceID")
                         .HasColumnType("int");
 
