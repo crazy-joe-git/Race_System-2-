@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Race_System_2_.Data;
 using Race_System_2_.Models;
@@ -19,139 +15,49 @@ namespace Race_System_2_.Controllers
             _context = context;
         }
 
-        // GET: RaceCategories
         public async Task<IActionResult> Index()
         {
             return View(await _context.RaceCategories.ToListAsync());
         }
 
-        // GET: RaceCategories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var raceCategory = await _context.RaceCategories
-                .FirstOrDefaultAsync(m => m.CategoryID == id);
-            if (raceCategory == null)
-            {
-                return NotFound();
-            }
-
-            return View(raceCategory);
-        }
-
-        // GET: RaceCategories/Create
+        [Authorize(Roles = "Organiser")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: RaceCategories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryID,CategoryName,Distance,Category_description")] RaceCategory raceCategory)
+        [Authorize(Roles = "Organiser")]
+        public async Task<IActionResult> Create(RaceCategory category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(raceCategory);
+                _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(raceCategory);
+            return View(category);
         }
 
-        // GET: RaceCategories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var raceCategory = await _context.RaceCategories.FindAsync(id);
-            if (raceCategory == null)
-            {
-                return NotFound();
-            }
-            return View(raceCategory);
-        }
-
-        // POST: RaceCategories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryID,CategoryName,Distance,Category_description")] RaceCategory raceCategory)
-        {
-            if (id != raceCategory.CategoryID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(raceCategory);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RaceCategoryExists(raceCategory.CategoryID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(raceCategory);
-        }
-
-        // GET: RaceCategories/Delete/5
+        [Authorize(Roles = "Organiser")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var raceCategory = await _context.RaceCategories
-                .FirstOrDefaultAsync(m => m.CategoryID == id);
-            if (raceCategory == null)
-            {
-                return NotFound();
-            }
-
-            return View(raceCategory);
+            if (id == null) return NotFound();
+            var category = await _context.RaceCategories.FirstOrDefaultAsync(m => m.CategoryID == id);
+            if (category == null) return NotFound();
+            return View(category);
         }
 
-        // POST: RaceCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Organiser")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var raceCategory = await _context.RaceCategories.FindAsync(id);
-            if (raceCategory != null)
-            {
-                _context.RaceCategories.Remove(raceCategory);
-            }
-
+            var category = await _context.RaceCategories.FindAsync(id);
+            if (category != null) _context.RaceCategories.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool RaceCategoryExists(int id)
-        {
-            return _context.RaceCategories.Any(e => e.CategoryID == id);
         }
     }
 }
