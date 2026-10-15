@@ -232,6 +232,13 @@ namespace Race_System_2_.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventID"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Distance")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
 
@@ -240,6 +247,10 @@ namespace Race_System_2_.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

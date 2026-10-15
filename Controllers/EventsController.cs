@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Race_System_2_.Data;
 using Race_System_2_.Models;
@@ -28,130 +24,102 @@ namespace Race_System_2_.Controllers
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var @event = await _context.Events
+            var raceEvent = await _context.Events
                 .FirstOrDefaultAsync(m => m.EventID == id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
 
-            return View(@event);
+            if (raceEvent == null) return NotFound();
+
+            return View(raceEvent);
         }
 
-        // GET: Events/Create
+        // GET: Events/Create (Organiser Only)
+        [Authorize(Roles = "Organiser")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Events/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventID,EventName,EventDate,EventLocation,OrganizerName")] Event @event)
+        [Authorize(Roles = "Organiser")]
+        public async Task<IActionResult> Create([Bind("EventID,EventName,Description,EventDate,EventLocation,Distance,EventType,OrganizerName")] Event raceEvent)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
+                _context.Add(raceEvent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            return View(raceEvent);
         }
 
-        // GET: Events/Edit/5
+        // GET: Events/Edit/5 (Organiser Only)
+        [Authorize(Roles = "Organiser")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var @event = await _context.Events.FindAsync(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-            return View(@event);
+            var raceEvent = await _context.Events.FindAsync(id);
+            if (raceEvent == null) return NotFound();
+
+            return View(raceEvent);
         }
 
         // POST: Events/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventID,EventName,EventDate,EventLocation,OrganizerName")] Event @event)
+        [Authorize(Roles = "Organiser")]
+        public async Task<IActionResult> Edit(int id, [Bind("EventID,EventName,Description,EventDate,EventLocation,Distance,EventType,OrganizerName")] Event raceEvent)
         {
-            if (id != @event.EventID)
-            {
-                return NotFound();
-            }
+            if (id != raceEvent.EventID) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(@event);
+                    _context.Update(raceEvent);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventExists(@event.EventID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!_context.Events.Any(e => e.EventID == id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            return View(raceEvent);
         }
 
-        // GET: Events/Delete/5
+        // GET: Events/Delete/5 (Organiser Only)
+        [Authorize(Roles = "Organiser")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var @event = await _context.Events
+            var raceEvent = await _context.Events
                 .FirstOrDefaultAsync(m => m.EventID == id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
 
-            return View(@event);
+            if (raceEvent == null) return NotFound();
+
+            return View(raceEvent);
         }
 
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Organiser")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
-            if (@event != null)
+            var raceEvent = await _context.Events.FindAsync(id);
+            if (raceEvent != null)
             {
-                _context.Events.Remove(@event);
+                _context.Events.Remove(raceEvent);
             }
-
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool EventExists(int id)
-        {
-            return _context.Events.Any(e => e.EventID == id);
         }
     }
 }
