@@ -49,5 +49,8 @@ In Part 2, the architectural blueprints were transformed into a fully functional
 ### Running the Application Locally
 1. **Clone the Repository:**
    ```bash
-   git clone [https://github.com/your-username/Race_System-2-.git](https://github.com/your-username/Race_System-2-.git)
+   git clone [https://github.com/crazy-joe-git/Race_System-2-.git](https://github.com/crazy-joe-git/Race_System-2-.git)
    cd Race_System-2-
+
+### Successful Green Build Screenshot
+![CI/CD Workflow Status](CI%20workflow.png)
